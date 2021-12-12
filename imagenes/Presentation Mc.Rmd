@@ -1,0 +1,141 @@
+---
+title: "FAST FOOD. Análisis del restaurante Mc Donald's"
+author: "Alba Estela, Melanie Neufocur y Mireia Yangüez"
+date: "12/12/2021"
+output: ioslides_presentation
+logo: logooo.gif
+---
+
+
+```{css, echo = FALSE}
+.columns {display:flex;}
+h1.title {font-size: 50px;color: red}
+h1 {color:"#b9132c"; font-size: 40px ;font-family: ArialBlack, Helvetica, sans-serif}
+h2{color: "#ae2f35"; font-size: 30px;}
+body { background-color: #FFC40C; }
+a {color: green;}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: olivedrab;
+    border-color: palered;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > 
+
+
+
+```
+  
+```{r chunk-setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, 
+                      #results = "hold",
+                      cache = FALSE, cache.path = "/caches/", comment = "#>",
+                      #fig.width = 7, #fig.height= 7,   
+                      #out.width = 7, out.height = 7,
+                      collapse = TRUE,  fig.show = "hold",
+                      fig.asp = 0.628, out.width = "75%", fig.align = "center")
+
+
+```
+
+```{r options-setup, include = FALSE}
+options(scipen = 999) #- para quitar la notación científica
+options("yaml.eval.expr" = TRUE)
+```
+
+```{r klippy, echo = FALSE}
+klippy::klippy(position = c("top", "right")) #- remotes::install_github("rlesur/klippy")
+```
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, eval = TRUE}
+library(ggplot2)
+library(dplyr)
+library(reactable)
+library(gt)
+library(tibble)
+library("plotly")
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(patchwork)
+library(gganimate)
+library(wordcloud2)
+library(webshot)
+library(corrplot)
+library(sqldf)
+library(RColorBrewer) 
+library(kableExtra)
+library(knitr)
+
+```
+
+
+## INTRODUCCIÓN
+
+
+
+![](https://static.vecteezy.com/system/resources/previews/000/064/171/non_2x/mcdonald-s-vector-logo.jpg) </center>
+
+
+
+## Breve Historia
+
+![Historia](https://static1.abc.es/Media/201303/20/mcdonalds.jpeg)
+
+## LOGOS
+
+## LOGO 1
+![](https://github.com/Meneuf/trabajo_BigData_equipo/blob/main/imagenes/McDonalds-Logo-1940.jpg?raw=true) 
+
+## LOGO 2
+![](https://github.com/Meneuf/trabajo_BigData_equipo/blob/main/imagenes/McDonalds-Logo-1948.jpg?raw=true)
+
+## LOGO 3
+![](https://github.com/Meneuf/trabajo_BigData_equipo/blob/main/imagenes/McDonalds-Logo-1953.jpg?raw=true)
+
+## LOGO 4
+![](https://github.com/Meneuf/trabajo_BigData_equipo/blob/main/imagenes/McDonalds-Logo-1961.jpg?raw=true)
+
+## LOGO 5
+![](https://github.com/Meneuf/trabajo_BigData_equipo/blob/main/imagenes/McDonalds-Logo-1968.jpg?raw=true)
+
+## LOGO 6
+![](https://github.com/Meneuf/trabajo_BigData_equipo/blob/main/imagenes/WhatsApp%20Image%202021-12-11%20at%202.34.51%20PM.jpeg?raw=true)
+
+## LOGO 7
+![](https://github.com/Meneuf/trabajo_BigData_equipo/blob/main/imagenes/WhatsApp%20Image%202021-12-11%20at%203.50.28%20PM.jpeg?raw=true)
+
+## LOGO 8
+![](https://github.com/Meneuf/trabajo_BigData_equipo/blob/main/imagenes/WhatsApp%20Image%202021-12-11%20at%203.48.30%20PM.jpeg?raw=true)
+
+## Número de restaurantes FastFood
+
+```{r}
+restaurantesUS <- read_csv2("FastFoodRestaurants.csv")
+
+mas_restaurantes <- restaurantesUS %>% 
+  group_by(name) %>% 
+  mutate(n_restaurantes = sum(NN = n())) %>%
+  distinct(name, n_restaurantes) %>%
+  arrange(desc(n_restaurantes)) %>%
+  filter(n_restaurantes >=192) 
+
+  gg_restaurantes <- ggplot(mas_restaurantes, aes(name, n_restaurantes)) +
+  geom_bar(stat = "identity")
+  
+gg_restaurantes
+
+
+
+
+```
+  
+
+
