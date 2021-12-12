@@ -20,12 +20,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r packages-setup, include = FALSE}
-library(tidyverse)
-library(klippy)  
-remotes::install_github("rlesur/klippy")
-library(knitr)
-```
+
 
 ```{r chunk-setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, 
@@ -35,14 +30,14 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE
                       #out.width = 7, out.height = 7,
                       collapse = TRUE,  fig.show = "hold",
                       fig.asp = 0.628, out.width = "75%", fig.align = "center")
-knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+
+
 ```
 
 ```{r options-setup, include = FALSE}
 options(scipen = 999) #- para quitar la notación científica
-options("yaml.eval.expr" = TRUE) 
+options("yaml.eval.expr" = TRUE)
 ```
-
 
 ```{r klippy, echo = FALSE}
 klippy::klippy(position = c("top", "right")) #- remotes::install_github("rlesur/klippy")
@@ -64,14 +59,54 @@ La página web de la asignatura y los trabajos de mis compañeros pueden verse [
 
 # [1. Introducción]{.verdecito}
 
-En el presente trabajo vamos a mostrar algunos datos de interés de una de las empresas multinacionales más conocidas a nivel mundial, McDonald's. Por un lado, veremos el menú de esta franquicia, así como los macronutrientes que contienen los productos y los valores nutricionales, mostrando y explicando los aspectos más relevantes. También trataremos de compararlo con otros grandes restaurantes de comida rápida en los Estados Unidos, país que acoge más cantidad de marcas de restaurantes de comida rápida en el mundo por excelencia.
+En el presente trabajo vamos a mostrar algunos datos de interés de una de las empresas multinacionales más conocidas a nivel mundial, McDonald's. Por un lado, veremos el menú de esta franquicia, así como los macronutrientes que contienen los productos y los valores nutricionales, mostrando y explicando los aspectos más relevantes. También trataremos de compararlo con otros grandes restaurantes de comida rápida en los Estados Unidos, país que acoge más cantidad de marcas de restaurantes de comida rápida en el mundo por excelencia.+
 
-# 1.1 Breve Historia
+![Marca](./imagenes/introduccion.jpeg)
+
+## 1.1 Breve Historia
 
 El primer restaurante de McDonald's se ubicaba en California, en el año 1948, como un bar de carretera. Fueron los dos hermanos Maurice y Richard Mcdonald quien llevaron a cabo este proyecto. Los elementos que lo caracterizaban y fueron motivo del éxito eran; por un lado, se podía pedir y recoger los productos desde el coche, los grandes ventanales que tenían permitían ver desde fuera como el pedido se preparaba y por último, los bajos precios que lo diferenciaban de competidores. Este último estuvo a punto de llevar a los hermanos a la quiebra, por lo que estos tuvieron que cerrar el negocio y organizar una buena estrategia. Resumiendo, Ray A. Kroc, alguien importante en los negocios por aquella zona, vio el potencial del restaurante en si y con la cesión del derecho de comercializar la marca por parte de los hermanos, abrió otro restaurante en Illinois. Y así se podría decir que empezó este negocio que actualmente tiene tanto éxito.
 
 
 La introducción **es una de las partes importantes del trabajo**. En la introducción suele ponerse el objetivo, motivación, un pequeño resumen del trabajo y avance de conclusiones si es que hay.
+
+
+![Historia](./imagenes/historia.jpeg)
+
+
+## 1.2  ## <FONT COLOR="sky-blue">2. LOGOS</FONT>. {.tabset}
+
+### <FONT COLOR="FF4D00">Logo1</FONT>
+
+![Logo1](./imagenes/McDonalds-Logo-1940.jpg)
+
+### <FONT COLOR="FF4D00">Logo2</FONT>
+![Logo2](./imagenes/McDonalds-Logo-1948.jpg)
+
+### <FONT COLOR="FF4D00">Logo3</FONT>
+![Logo3](./imagenes/McDonalds-Logo-1953.jpg)
+
+### <FONT COLOR="FF4D00">Logo4</FONT>
+![Logo4](./imagenes/McDonalds-Logo-1961.jpg)
+
+
+### <FONT COLOR="FF4D00">Logo5</FONT>
+![Logo5](./imagenes/McDonalds-Logo-1968.jpg)
+
+
+### <FONT COLOR="FF4D00">Logo6</FONT>
+![Logo6](./imagenes/WhatsApp Image 2021-12-11 at 2.34.51 PM.jpeg)
+
+### <FONT COLOR="FF4D00">Logo7</FONT>
+![Logo7](./imagenes/WhatsApp Image 2021-12-11 at 3.50.28 PM.jpeg)
+
+### <FONT COLOR="FF4D00">Logo8</FONT>
+![Logo8](./imagenes/WhatsApp Image 2021-12-11 at 3.48.30 PM.jpeg)
+
+
+
+
+
 
 ```{r, eval = TRUE}
 2 + 2
@@ -79,7 +114,7 @@ La introducción **es una de las partes importantes del trabajo**. En la introdu
 
 Yo no usaría CSS, bastante trabajo tenéis, pero ... si usas CSS para tunear tu html podrás dejarlo más bonito, o al menos más a tu gusto. Por ejemplo, podrás fácilmente cambiar el tamaño de algunas palabras, por ejemplo, **[unas palabras en grande y en negrita]{.large}**, aunque si estas usando CSS saldrán en verde porque en el CSS he puesto que la negrita salga en verde. Por ejemplo, podrás poner fácilmente [unas palabras en purple]{.purple}, y ahora, [[en grande y en rojito]{.rojito}]{.large}.
 
-# 2. Datos
+# 2. Cargamos datos y paquetes
 
 Este trabajo ha sido posible realizarlo con la ayuda de varias fuentes de donde hemos sacado los datos. En la página web facilitada por la asignatura (kaggle), hemos utilziado principalmente 5 datasests, que los indicaremos en la última parte, en la bibliografía. Por otro lado, hemos accedido a documentos oficiales del restaurante para obtener más datos.
 
@@ -87,39 +122,40 @@ Este trabajo ha sido posible realizarlo con la ayuda de varias fuentes de donde 
 Una parte **importante** del trabajo es explicar **de donde proceden los datos** y cual ha sido el proceso de limpieza
 
 ```{r, eval = TRUE}
-ggplot(iris, aes(Sepal.Length, Petal.Length)) + geom_point()
+library(ggplot2)
+library(dplyr)
+library(reactable)
+library(gt)
+library(tibble)
+library("plotly")
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(patchwork)
+library(gganimate)
+library(wordcloud2)
+library(webshot)
+library(corrplot)
+library(sqldf)
+library(RColorBrewer) 
 
-
+menu <- rio::import("./datos/menu1.1.csv")
+restaurantesUS <- rio::import("./datos/FastFoodRestaurants.csv")
+fastfoodrestaurants <- rio::import("./datos/fastfoodrestaurants.csv")
+ruta4 <- here::here("datos", "Datafiniti_Fast_Food_Restaurants_May19.csv")
+fastfoodrestaurants19 <- rio::import(ruta4)
+ingresos <- rio::import("./datos/ingresos1.csv")
+ventas <- rio::import("./datos/sales.csv")
 ```
 
 
 
 
 
-## 2.1. Procesando los datos
+# 3.Restaurantes FastFood en EEUU
 
-
-
-Pues eso que tenéis que contar (un poco) el procesado de datos
-
-```{r, eval = TRUE}
-library(ggplot2)
-
-
-
-
-
-
-
-
-
-menu <- rio::import("./datos/menu.csv")
-restaurantesUS <- rio::import("./datos/FastFoodRestaurants.csv")
-fastfoodrestaurants <- rio::import("./datos/fastfoodrestaurants.csv")
-ruta4 <- here::here("datos", "Datafiniti_Fast_Food_Restaurants_May19.csv")
-fastfoodrestaurants19 <- rio::import(ruta4)
-
-
+## 3.1 Número de restaurantes FastFood
+```{r}
 mas_restaurantes <- restaurantesUS %>% 
   group_by(name) %>% 
   mutate(n_restaurantes = sum(NN = n())) %>%
@@ -134,14 +170,27 @@ gg_restaurantes
 
 ```
 
+
+## 3.2 Ingresos restaurantes FastFood
+```{r}
+
+ df_ingresos <- ggplot(ingresos, aes(x=reorder(Resturantes, Value), y=Value, fill=Resturantes))+
+  geom_bar(stat="identity") +
+  theme(legend.position = "none") +
+  coord_polar(start = 0.01) +
+  labs (x="Paises") + labs(y="Miles de millones de dólares") + labs(title = "Ingresos de los Resturantes FastFood") + labs(subtitle = "En miles de millones de dólares")
+
+df_ingresos
+
 ```
-library(dplyr)
+
+# 4.McDonalds
+
+## 4.1 Productos McDonalds
+```{r}
 df_menu <- menu %>%
-select(Item) %>%
+select(Item)
 
-#Productos que ofrece MacDonald´s
-
-library(reactable)
 reactable(df_menu, defaultPageSize =  8,  paginationType = "jump", showPageSizeOptions =  TRUE , pageSizeOptions =  c ( 10 , 50 , 100, 150, 200, 260 ),defaultColDef = colDef(
     align = "center",
     minWidth = 70,
@@ -156,25 +205,52 @@ reactable(df_menu, defaultPageSize =  8,  paginationType = "jump", showPageSizeO
     }
     list(color = color, fontWeight = "bold")
   })))
+```
 
+## 4.2 Categorias de productos en McDonalds
+```{r}
+m <- list(
+  l = 50,
+  r = 50,
+  b = 100,
+  t = 100,
+  pad = 4
+)
+marker = list(color = brewer.pal(9, "Set1"))
+p <- plot_ly(
+  x = menu$Category,
+  marker = list(color = '#CD0BBC'),
+    type = "histogram"
+)%>%
+  layout(         xaxis = list(title = ""),
+         yaxis = list(title = ""),
+         autosize = T)
+p
+
+display.brewer.all()
 
 ```
-#¿Cuál es el producto con más calorias?
+
+
+
+
+# 5.VALORES NUTRICIONALES
+
+## 5.1 ¿Cuál es el producto con más calorias?
+```{r}
 df_calorias <- menu %>%
 select(Item, Calories) 
 
-dftop1 <- df_calorias %>% 
-slice_max(Calories, n=1) #Chicken McNuggets (40 piece) es el producto con más calorias.
+dftop1 <- df_calorias %>% slice_max(Calories, n=1)
 
 Imagen <- "https://i.pinimg.com/originals/d5/5f/03/d55f035c37d84ec55934ba6d469bedce.jpg"
 
 dftop1 <- dftop1 %>% add_column(Imagen)
 
-library(gt)
 Tabla_Pmascal <- dftop1 %>% gt()
 
 Tabla_Pmascal <- Tabla_Pmascal %>%
-                   tab_header(title = md("**Producto con más calorias**")
+                   tab_header(title = md("**Producto con mas calorias**"))
                    
 Tabla_Pmascal <- Tabla_Pmascal %>%
                 tab_options(heading.background.color = "coral") %>% tab_options(heading.title.font.size = 15,  column_labels.font.weight =  "bold")
@@ -186,8 +262,13 @@ Tabla_Pmascal <- Tabla_Pmascal  %>%
 
 Tabla_Pmascal
 
+```
 
-#¿Cuál es el producto con menos calorias?
+
+
+## 5.2 ¿Cuál es el producto con menos calorias?
+
+```{r}
 dfmin1 <- df_calorias %>% 
 slice_min(Calories, n=1) %>%
 filter (Item == "Dasani Water Bottle") #Dasani Water Bottle es uno de los productos con menos calorias 
@@ -200,7 +281,7 @@ dfmin1 <- dfmin1 %>% add_column(Imagen)
 Tabla_Pmincal <- dfmin1 %>% gt()
 
 Tabla_Pmincal <- Tabla_Pmincal %>%
-                   tab_header(title = md("**Producto con menos calorias**")
+                   tab_header(title = md("**Producto con menos calorias**"))
                    
 Tabla_Pmincal <- Tabla_Pmincal %>%
                 tab_options(heading.background.color = "coral") %>% tab_options(heading.title.font.size = 15,  column_labels.font.weight =  "bold")
@@ -212,155 +293,329 @@ Tabla_Pmincal <- Tabla_Pmincal  %>%
 
 Tabla_Pmincal
 
+```
 
+## 5.3. ## <FONT COLOR="sky-blue">2. PRODUCTOS CON MAYOR MACRONUTRIENTES</FONT>. {.tabset}
 
-
+### <FONT COLOR="FF4D00">*Proteina*</FONT>
+```{r}
 df14prod <- menu %>%
   select(Item, Protein) %>%
-  slice_max(Protein, n = 14)%>%
+  head(Protein, n = 10L)%>%
   group_by(Item, Protein) %>%
-   summarise(n = n())%>%
-  arrange(desc(Protein))%>%
-  drop_na()
- 
-  
-  
- 
+  arrange(desc(Protein))
+
+df14prod
+
+wordcloud2(data=df14prod, size=0.1)
 
 
-
-
-
-##GRÁFICO INTERACTIVO   
-  
-### Carbohydrates  
-```{r echo=FALSE,warning=FALSE}
-install.packages("ggplotly")
-plot_ly(x = menu$Category, y=menu$Carbohydrates,color = menu$Category,colors =new_col , type = "box") %>% layout(
-         xlab = list(title = ""),
-         ylab = list(title = ""),
-         showlegend=FALSE,
-         autosize = T)
 ```
 
-
-```{r echo=FALSE,warning=FALSE}
-
- 
-p<-plot_ly(x=menu$Calories, y=menu$Carbohydrates, type="scatter", mode = "markers" , 
-marker=list( color=ifelse(menu$Calories>500,"red","blue") , opacity=0.5 , size=20) ) 
-p
-
-```
-    
-### Fat  
-```{r echo=FALSE,warning=FALSE}
-plot_ly(x = menu$Category, y=menu$Total.Fat,color = menu$Category,colors =new_col , type = "box") %>% layout(
-         xlab = list(title = ""),
-         ylab = list(title = ""),
-         showlegend=FALSE,
-         autosize = T)
-
-```
-Comapring Total Fat & Saturated Fat with Calories from Fat for all items.
-```{r echo=FALSE}
-m1<-menu%>%select(Total.Fat,Calories.from.Fat,Saturated.Fat)
-m2<-as.matrix(m1)
-colnames(m2)<-NULL
-#m2
-p <- plot_ly(z=~m2) %>% add_surface()%>%layout(scene = list(xaxis = list(title = 'Total.Fat'),
-                     yaxis = list(title = 'Calories from Fat'),
-                     zaxis = list(title = 'Saturated Fat')))
-p
-```
+### <FONT COLOR="FF4D00">*Grasas*</FONT>
+```{r}
+totalfat <- menu %>%
+ select(Item, Fat) 
 
 
+df_fat <- totalfat %>%
+head(Fat, n= 10L) %>%
+group_by(Item, Fat) %>%
+arrange(desc(Fat))
 
-Comapring different Fats in items(category= Beef & Park, Chicken & Fish) 
-```{r echo=FALSE,warning=FALSE}
-m1<-menu%>%filter(Category %in% c("Beef & Pork","Chicken & Fish"))%>%arrange(desc(Total.Fat....Daily.Value.,Saturated.Fat....Daily.Value.,Trans.Fat))
-p <- plot_ly(m1, x = ~factor(Item,levels=Item), y = ~Total.Fat....Daily.Value., name = 'Total Fat DV', type = 'scatter', mode = 'lines+markers', width = 2,color = I('red')) %>%
-    add_trace(y = ~Saturated.Fat....Daily.Value., name = 'Saturated Fat DV',color=I('blue')) %>%
-  add_trace(y = ~Trans.Fat, name = 'Trans Fat',color=I("hotpink")) %>%
-      layout(title = 'Camparing Fat in Items',
-         xaxis = list(title = "",
-                      showgrid = FALSE),
-         yaxis = list(title = "value",
-                      showgrid = FALSE),
-         legend=list(orientation="r",xanchor="center"))
-p
-```
+df_fat
 
 
-### Sugars  
-According to the American Heart Association (AHA), the maximum amount of added sugars you should eat in a day are (7):  
-  
-Men: 150 calories per day (37.5 grams or 9 teaspoons).  
-Women: 100 calories per day (25 grams or 6 teaspoons).  
-```{r echo=FALSE,warning=FALSE}
-plot_ly(x = menu$Category, y=menu$Sugars,color = menu$Category,colors =new_col , type = "bar") %>% layout(title = "Sugars",
+plot_ly(x = menu$Category, y=menu$Fat,color = menu$Category,colors = "blue" , type = "box") %>% layout(
          xaxis = list(title = ""),
          yaxis = list(title = ""),
          showlegend=FALSE,
          autosize = T)
-```  
- 
- 
-```{r echo=FALSE,warning=FALSE}
-library(stringr)
-ss<-menu%>%select(Category,Item,Sugars,Serving.Size,Sugars)%>%filter(Category=="Smoothies & Shakes")
-ss$size<-NULL
-ss$size[str_detect(ss$Item,"Small")]<-"Small"
-ss$size[str_detect(ss$Item,"Medium")]<-"Medium"
-ss$size[str_detect(ss$Item,"Large")]<-"Large"
-ss$size[str_detect(ss$Item,"Snack")]<-"Snack"
-ss%>%filter(!size == "Snack")%>%arrange(desc(Sugars))%>%ggplot(aes(x=factor(Item,level=Item),y=Sugars,group=size,fill=size))+
-  geom_bar(stat="identity",position="dodge",alpha=0.7)+theme(axis.text.x = element_text(angle=90))+coord_flip()+
-  labs(x="Item",title="Sugar content in Smoothies & Shakes")
+
 ```
+ 
 
+### <FONT COLOR="FF4D00">*Carbohidratos*</FONT>
+```{r} 
+carbos <- menu %>%
+select(Item,Carbohydrates)
 
-### Cholestrol  
+df_carbos <- carbos %>%
+head(Carbohydrates, n= 10L) %>%
+group_by(Item, Carbohydrates) %>%
+arrange(desc(Carbohydrates))
 
-Comparing Cholesterol and Cholesterol DV in Items.  
-```{r echo=FALSE,warning=FALSE}
-menu %>% arrange(desc(Cholesterol....Daily.Value.))%>%plot_ly( x = ~factor(Item,levels=Item), y = ~Cholesterol, type="scatter",color=~Item, size=~Cholesterol,colors='Paired',mode = "markers" , marker=list( opacity=0.7) ) %>% 
-  add_trace(x = ~factor(Item,levels=Item), y = ~Cholesterol....Daily.Value., modee="lines",  yaxis = "y2", name = "Cholestrol DV",color=I('red'),line=list(opacity=0.7)) %>%
-  layout(yaxis2 = list(overlaying = "y", side = "left",title="Cholesterol DV"),
-      title = "Cholesterol Content",
+df_carbos
+
+plot_ly(x = menu$Category, y=menu$Carbohydrates,color = menu$Category, colors = "blue", type = "box") %>% layout(
          xaxis = list(title = ""),
-         yaxis = list(title = "Total Cholestrol",side="right"),
-         showlegend=FALSE,autosize = T,margin = list(
-      pad = 30, b = 90, l = 60, r = 80
-    ))
-```
- 
- 
+         yaxis = list(title = ""),
+         showlegend=FALSE,
+         autosize = T)
 
-```{r echo=FALSE,warning=FALSE}
-ch<-menu %>% select(Category,Item,Cholesterol)%>% arrange(desc(Cholesterol))%>%head(25)
-p1<-plot_ly(ch, x=factor(ch$Item,level=ch$Item),y=ch$Cholesterol,color=ch$Category,type="bar")%>%layout(title="Cholestrol Rich Items",height=400)
-ch1<-menu %>% select(Category,Item,Cholesterol)%>% arrange(desc(Cholesterol))%>%filter(Cholesterol >5 & Cholesterol<25)
-p2<-plot_ly(ch1, x=factor(ch1$Item,level=ch1$Item),y=ch1$Cholesterol,color=ch1$Category,type="bar")%>%layout(title="Cholestrol Low Items",height=400)
-ggplotly(p1)
-ggplotly(p2)
 ```
-  
-  
-##LO BUENO DEL MAC
 
+## 5.4. ## <FONT COLOR="sky-blue">2. PRODUCTOS CON MAYOR MICRONUTRIENTES</FONT>. {.tabset} 
+
+### <FONT COLOR="FF4D00">*VitaminaA*</FONT>
+
+```{r}
+vitaminaA <- menu %>%
+select(Item,VitaminA)
+
+df_vitamina1 <- vitaminaA %>%
+head(VitaminA, n= 10L)%>%
+arrange(desc(VitaminA))
+
+df_vitamina1
+
+grafico <- df_vitamina1 %>%
+  ggplot( aes(Item, VitaminA, size = 0.75, color= "orange")) +
+  geom_point() +
+  theme_bw()+ 
+  theme(legend.position = "none") +
+  labs(x = NULL) + theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
+ggplotly(grafico)
+grafico
+
+```
+
+
+### <FONT COLOR="FF4D00">*VitaminaC*</FONT>
+```{r}
+vitaminaC <- menu %>%
+select(Item,VitaminC)
+
+df_vitamina2 <- vitaminaC %>%
+head (VitaminC, n = 10L)%>%
+arrange(desc(VitaminC))
+
+df_vitamina2
+
+
+
+
+dfgrafico1 <- ggplot(df_vitamina2, aes(Item, color=VitaminC)) + 
+  geom_bar(fill=NA) + 
+  coord_flip()
+
+ggplotly(dfgrafico1)
+dfsagrafico1
+
+
+```
+
+### <FONT COLOR="FF4D00">*Fibra*</FONT>        
+```{r}        
+        
+fibra <- menu %>%
+select(Item,DietaryFiber)
+
+df_fibra <- fibra %>%
+head(DietaryFiber, n= 10L) %>%
+arrange(desc(DietaryFiber))
+
+df_fibra
+
+
+m <- list(
+  l = 50,
+  r = 50,
+  b = 100,
+  t = 100,
+  pad = 4
+)
+marker = list(color = brewer.pal(9, "Set1"))
+p <- plot_ly(
+  x = menu$Category,
+  marker = list(color = '#45171D')
+)
+                
+menu %>%  
+plot_ly( x = menu$Item, y = menu$DietaryFiber....DailyValue., type="scatter", mode = "markers" , marker=list( color=colorRampPalette(brewer.pal(11,"Spectral"))(100) , opacity=0.7) ) %>% layout(title = "Dietry Fibre Daily Content ",
+         xaxis = list(title = ""),
+         yaxis = list(title = "Daily Dietary fibre"),
+         showlegend=FALSE,autosize = F, width = 1000, height = 400,margin=m) 
+
+     
+
+
+      
+    
+```
+
+
+### <FONT COLOR="FF4D00">*Calcio*</FONT>
+```{r}        
+calcio <- menu %>%
+select(Item,Calcium)
+
+df_calcium <- calcio %>%
+head(Calcium, n= 10L) %>%
+arrange(desc(Calcium))
+
+df_calcium
+
+
+p <- ggplot(df_calcium, aes(x=Item, y=Calcium, color = "blue")) +  geom_point() + geom_smooth() +  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
+p+
+facet_wrap(
+vars(Item),  nrow = 4, ncol = 3)  # filas y columnas
+ggplotly(p)
+p
+
+
+```
+
+
+
+### <FONT COLOR="FF4D00">*Hierro*</FONT>
+```{r}
+
+hierro <- menu %>%
+ select(Item, Iron) 
+
+df_hierro <- hierro %>%
+head(Iron, n= 10L) %>%
+group_by(Item, Iron) %>%
+arrange(desc(Iron))
+
+df_hierro
+
+
+df <- ggplot(df_hierro, aes(x=Item, y=Iron)) +
+  geom_segment( aes(x=Item, xend=Item, y=0, yend=Iron)) +
+  geom_point( size=5, color="red", fill=alpha("orange", 0.3), alpha=0.7, shape=21, stroke=2) + theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
+ggplotly(df)
+df
+```
+
+## 5.4 Correlación
+
+```{r}
+menu <- na.omit(menu)
+scaledmenu <- data.frame(scale(menu[c(4:24)]))
+menu1<-cbind(menu[1:3],scaledmenu)
+
+M <- cor(scaledmenu)
+cex.before <- par("cex")
+par(cex = 0.7)
+corrplot(M, insig = "blank", method = "square",  tl.cex = .75)
+par(cex = cex.before)
+
+
+```
+
+## 5.5. COMBI PERFECTA
+```{r}
+Mincal<-aggregate(menu$Calories, by=list(menu$Category), FUN=min)
+colnames(Mincal)[1]<-"Category"
+colnames(Mincal)[2]<-"Calories"
+Mincalmenu<-sqldf("select a.Category,a.Item, a.Calories from menu a, Mincal b where a.Category==b.Category and a.Calories==b.Calories" )
+## The below table gives the minumum Calorie Item from Each Category
+Mincalmenu
+
+
+
+
+```
+
+
+# 6.Tipos de alimentos
+
+#PONER TEXTO: LO TIPICO ES... PERO TAMBIEN SU MENU ES
+
+## 6.1.BREAKFAST 
+```{r}
+ggplot(subset(menu,Category=="Breakfast"), aes(reorder(Item,Calories),Calories,fill=Calories)) + geom_bar(stat = "identity")  + theme(legend.position = "none")+ggtitle("Breakfast Vs Calories") + xlab("Item") + ylab("Calories")  + coord_flip()
+```
+
+
+## 6.2. SALAD MENU
 ```{r}
 ggplot(subset(menu,Category=="Salads"), aes(reorder(Item,Calories),Calories,fill=Calories)) + geom_bar(stat = "identity")  + theme(legend.position = "none")+ggtitle("Salads Menu Vs Calories") + xlab("Item") + ylab("Calories")  + coord_flip()
 
-#Poner que alimentos tienen mas vitamina y proteina y veremos que son las ensaldas, entonces si quieres comer algo sano en mac tu mejor opción es eso
 ```
 
+
+## 6.3. SNACKS 
+```{r}
+ggplot(subset(menu,Category=="Snacks & Sides"), aes(reorder(Item,Calories),Calories,fill=Calories)) + geom_bar(stat = "identity")  + theme(legend.position = "none")+ggtitle("Snacks & Sides Menu Vs Calories") + xlab("Item") + ylab("Calories")  + coord_flip()
+```
+## 6.4. COFFE AND TEA
+```{r}
+Coffeeandtea<-subset(menu,Category=="Coffee & Tea")
+Coffeeandtea <- Coffeeandtea[order(-Coffeeandtea$Calories),]
+Coffeeandtea<-Coffeeandtea[1:20,]
+ggplot(Coffeeandtea, aes(reorder(Item,Calories),Calories,fill=Calories)) + geom_bar(stat = "identity")  + theme(legend.position = "none")+ggtitle("Coffee & Tea Menu Vs Calories") + xlab("Item") + ylab("Calories")  + coord_flip()
+```
+ 
+
+
+# 7.Popularidad
+
+![Popu](./imagenes/popu.jpeg)
+
+
+
+```{r} 
+nummac <- restaurantesUS %>%
+  select(city, name) %>%
+   group_by(city) %>% 
+  mutate(nn_mac = sum(NN=n())) %>% 
+  filter(name == "McDonald's") %>% 
+  distinct(city, nn_mac) %>%
+  ungroup()
+
+top10 <- nummac %>%
+  slice_max(nn_mac , n=10) 
+
+grafico1 <- ggplot (top10, aes(x=nn_mac, y = city), aes(fct_rev(nn_mac))) + geom_bar(stat="identity", fill = "red") + coord_flip() + labs(x = "Numero de McDonalds", y = "City")+labs(title = "Locales por ciudad") 
+
+grafico1
+
+
+```
+
+
+# 8. Ventas 
+
+```{r}
+ventasmc <- ventas%>%
+  select(Años,Ventas)
+
+
+ ggplot( data= ventas, aes(x=Años, y=Ventas)) +
+    geom_line() +
+    geom_point() +
+    ggtitle("Evolución de las ventas de MC Donald's desde 2005-2019") +
+   theme_ipsum() +
+    ylab("Número de ventas") +
+    transition_reveal(Años)
+ 
+
+  
+
+ 
  
 
 
 
+ 
+```
 
-# 3. Trabajos en los que te has basado
+
+
+
 
 Es importante que, si habéis utilizado, os habéis basado/ayudado, de algún análisis previo de otro autor, lo digáis claramente.
 
@@ -371,7 +626,7 @@ Por ejemplo, está cita es de NV
 
 
 
-# 4. RECUERDA!!!
+
 
 
 <div class = "caja-medium-aquamarine">
@@ -410,7 +665,7 @@ SUERTE!!!!  🧙‍♀️🧙‍♀️
 
 
 
-# 4. Bibliografía
+
 
 No tienen porque ser artículos o libros; pueden ser posts, repos de Github, paquetes etc ...
 
